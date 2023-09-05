@@ -1,5 +1,7 @@
-import Image from "next/image";
+import { getAllThreads } from "@/lib/supabase";
+import Thread from "@/components/Thread";
 
-export default function Home() {
-  return <main>Home page</main>;
+export default async function RootPage() {
+  const data = await getAllThreads();
+  return <Thread data={data} />;
 }
