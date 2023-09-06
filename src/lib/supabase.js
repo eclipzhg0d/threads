@@ -11,8 +11,9 @@ const supabase = createClient(supabaseUrl, supabaseKey, {
 export async function getAllThreads() {
   const { data, error } = await supabase
     .from("threads")
-    .select("*")
+    .select()
     .order("id", { ascending: false });
+
   if (error) throw new Error("Fetching failed.");
 
   if (!data) {

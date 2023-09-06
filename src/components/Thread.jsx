@@ -2,58 +2,81 @@
 
 import FormatDate from "@/lib/date";
 import { Avatar } from "@material-tailwind/react";
-import { LuMoreHorizontal, LuHeart, LuMessageCircle } from "react-icons/lu";
+import {
+  LuMoreHorizontal,
+  LuHeart,
+  LuMessageCircle,
+  LuRepeat2,
+  LuSend,
+} from "react-icons/lu";
 import { useState } from "react";
+import {
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
+  Button,
+} from "@material-tailwind/react";
 
-export default function Thread({ data }) {
-  // states
-  const [liked, hasLiked] = useState(false);
-  const [open, setOpen] = useState(false);
-  // State handle
-  const handleClick = () => {
-    hasLiked(!liked); // Toggle the state
-  };
-  // map over thread component
+import { parseISO, format } from "date-fns";
+
+export function Date({ dateString }) {
+  const date = parseISO(dateString);
+  return <time dateTime={dateString}>{format(date, "LLLL d, yyyy")}</time>;
+}
+// gets data from parent
+export default function Thread({ thread }) {
   return (
-    <>
-      {data?.map((thread) => (
-        <div key={thread.id} className="text-white">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <Avatar
-                className="h-9 w-9"
-                src="/av-placeholder.png"
-                alt="avatar"
-              />
-              <div className="">{thread.username}</div>
+    <div className="text-white border-b border-gray-800 py-5 w-full">
+      <div className="flex ">
+        <Avatar className="h-9 w-9" src="/av-placeholder.png" alt="avatar" />
+        <div className="flex justify-between w-full pl-3">
+          <div className="">{thread.username}</div>
+          <div className="flex gap-3">
+            <div className="text-sm text-gray-500">
+              <Date dateString={thread.created_at} />
             </div>
-            <div className="flex items-center gap-3">
-              <div className="text-sm text-gray-500">
-                {/* <FormatDate dateString={thread.created_at} /> */}3 h ago
-              </div>
-              <button className="text-lg">
-                <LuMoreHorizontal />
-              </button>
-            </div>
+            <Menu placement="bottom-end">
+              <MenuHandler>
+                <button className="text-lg mb-5">
+                  <LuMoreHorizontal />
+                </button>
+              </MenuHandler>
+
+              <MenuList className="bg-[#181818] border border-gray-900">
+                <MenuItem>Hide</MenuItem>
+                <MenuItem className="text-red-500">Block</MenuItem>
+                <MenuItem className="text-red-500">Report</MenuItem>
+              </MenuList>
+            </Menu>
           </div>
-          <div className="pl-12">{thread.content}</div>
-          <div className="pl-12 pt-5 flex items-center gap-4">
-            <button
-              onClick={handleClick}
-              className={
-                liked
-                  ? "text-red-500 transition duration-300"
-                  : "text-grey-500 transition duration-300"
-              }
-            >
+        </div>
+      </div>
+      <div className="flex">
+        <div className="px-[16px]">
+          <div className="w-[2px] h-full bg-gray-800 "></div>
+        </div>
+        <div>
+          <div className="-mt-3 text-sm pl-4">{thread.body}</div>
+          <div>
+            <button className="hover:bg-gray-900 p-3 rounded-full transition duration-200 hover:text-red-500">
               <LuHeart />
             </button>
+
             <button className="hover:bg-gray-900 p-3 rounded-full transition duration-200">
               <LuMessageCircle />
             </button>
+
+            <button className="hover:bg-gray-900 p-3 rounded-full transition duration-200">
+              <LuRepeat2 />
+            </button>
+
+            <button className="hover:bg-gray-900 p-3 rounded-full transition duration-200 text-lg">
+              <LuSend />
+            </button>
           </div>
         </div>
-      ))}
-    </>
+      </div>
+    </div>
   );
 }
