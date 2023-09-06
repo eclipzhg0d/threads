@@ -1,6 +1,7 @@
 import "@/styles/globals.css";
 import { Inter } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
+import Navigation from "@/components/Navigation";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,6 +15,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <NextTopLoader />
+        <Navigation />
         <section className="main-container">
           <div className="w-full max-w-4xl  p-5 rounded-md">{children}</div>
         </section>

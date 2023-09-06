@@ -7,7 +7,6 @@ export default async function RootPage() {
   const thread = await getAllThreads();
 
   // every time page reloads we get fresh data
-
   revalidatePath("/");
 
   return (

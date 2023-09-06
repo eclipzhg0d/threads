@@ -18,17 +18,15 @@ import {
   Button,
 } from "@material-tailwind/react";
 
-import { parseISO, format } from "date-fns";
+import { TbSend } from "react-icons/tb";
 
-export function Date({ dateString }) {
-  const date = parseISO(dateString);
-  return <time dateTime={dateString}>{format(date, "LLLL d, yyyy")}</time>;
-}
+import { Date } from "@/lib/date";
+
 // gets data from parent
 export default function Thread({ thread }) {
   return (
     <div className="text-white border-b border-gray-800 py-5 w-full">
-      <div className="flex ">
+      <div className="flex pb-1">
         <Avatar className="h-9 w-9" src="/av-placeholder.png" alt="avatar" />
         <div className="flex justify-between w-full pl-3">
           <div className="">{thread.username}</div>
@@ -71,8 +69,8 @@ export default function Thread({ thread }) {
               <LuRepeat2 />
             </button>
 
-            <button className="hover:bg-gray-900 p-3 rounded-full transition duration-200 text-lg">
-              <LuSend />
+            <button className="hover:bg-gray-900 p-3 rounded-full transition duration-200 text-md mt-1">
+              <TbSend />
             </button>
           </div>
         </div>
